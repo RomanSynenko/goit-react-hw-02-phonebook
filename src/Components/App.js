@@ -3,10 +3,12 @@ import ContactForm from "./ContactForm/ContactForm";
 
 import s from './ContainerStyle.module.scss';
 import ContactList from "./ContatctList/ContatctList";
+import Filter from "./Filter";
 
 class App extends Component {
   state = {
-    contacts: []
+    contacts: [],
+    filter: '',
   }
   onAddContact = (newContact) => this.setState(
     ({ contacts }) => ({ contacts: [...contacts, newContact] })
@@ -20,12 +22,20 @@ class App extends Component {
   handleRemoveContact = (id) => {
     this.setState(({ contacts }) => ({ contacts: contacts.filter((contact) => contact.id !== id) }))
   }
+  handelFilter = (filter) => this.setState({ filter });
+  getVisibleContacts = () => {
+    const { contacts, filter } = this.state;
+    return contacts.filter((contact) => contact.name.toLowerCase().includes(filter.toLowerCase()))
+  }
   render() {
-    const { contacts } = this.state;
+    const { filter } = this.state;
+    const visibleContacts = this.getVisibleContacts();
     return (
       <div className={s.container}>
+
         <ContactForm onAdd={this.onAddContact} onCheckUnique={this.handelCheskUniqueContact} />
-        <ContactList contacts={contacts} onRemove={this.handleRemoveContact} />
+        <Filter filter={filter} onChange={this.handelFilter} />
+        <ContactList contacts={visibleContacts} onRemove={this.handleRemoveContact} />
       </div>
     )
   };

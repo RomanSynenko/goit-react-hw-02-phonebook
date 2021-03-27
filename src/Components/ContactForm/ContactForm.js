@@ -21,7 +21,8 @@ class ContactForm extends Component {
         const { onAdd } = this.props;
         const isValidationForm = this.validationForm();
         if (!isValidationForm) return
-        onAdd({ id: uuid(), name, phone })
+        onAdd({ id: uuid(), name, phone });
+        this.resetForm();
     }
     validationForm = () => {
         const { name, phone } = this.state;
