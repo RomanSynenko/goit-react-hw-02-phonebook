@@ -1,6 +1,9 @@
-import s from './List.module.scss'
+import s from './List.module.scss';
+import PropTypes from 'prop-types'
+
 
 const ContactListItem = ({ id, name, phone, onRemove }) => {
+    if (phone !== Number) return null
     return (
         <li className={s.contact_item}>
             <p className={s.contact_name}>{name} </p> :
@@ -20,4 +23,14 @@ const ContactList = ({ contacts, onRemove }) => {
         </ul>
     )
 }
+ContactListItem.propTypes = {
+    contacts: PropTypes.array.isRequired,
+    onRemove: PropTypes.func.isRequired,
+};
+ContactListItem.propTypes = {
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    phone: PropTypes.number.isRequired,
+    onRemove: PropTypes.func.isRequired,
+};
 export default ContactList;
