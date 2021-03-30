@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 
 
 const ContactListItem = ({ id, name, phone, onRemove }) => {
-    if (phone !== Number) return null
     return (
         <li className={s.contact_item}>
             <p className={s.contact_name}>{name} </p> :
@@ -30,7 +29,7 @@ ContactListItem.propTypes = {
 ContactListItem.propTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    phone: PropTypes.number.isRequired,
+    phone: PropTypes.string.isRequired,
     onRemove: PropTypes.func.isRequired,
 };
 export default ContactList;
